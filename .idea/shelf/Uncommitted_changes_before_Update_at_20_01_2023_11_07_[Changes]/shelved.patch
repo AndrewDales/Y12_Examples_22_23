@@ -1,0 +1,109 @@
+Index: Object Oriented Programming/OOP examples.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>class Dog:\r\n    # Class attribute\r\n    species = \"Canis familiaris\"\r\n\r\n    # Initialization method\r\n    def __init__(self, name, age):\r\n        self.name = name\r\n        self.age = age\r\n\r\n    # Defined method\r\n    def speak(self, sound):\r\n        return f\"{self.name} says {sound}\"\r\n\r\n    # description method\r\n    def description(self):\r\n        return f\"{self.name} is {self.age} years old\"\r\n\r\n    # detailed representation of the instance (for a developer)\r\n    def __repr__(self):\r\n        return f\"Dog('{self.name}', {self.age})\"\r\n\r\n    # quick representation of the instance (for a user)\r\n    def __str__(self):\r\n        return f\"{self.name}, {self.age}\"\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Object Oriented Programming/OOP examples.py b/Object Oriented Programming/OOP examples.py
+--- a/Object Oriented Programming/OOP examples.py	(revision 855829673a73e260d2434f7da6b3c0f512e2eec8)
++++ b/Object Oriented Programming/OOP examples.py	(date 1673543584968)
+@@ -1,14 +1,23 @@
+ class Dog:
++
+     # Class attribute
+     species = "Canis familiaris"
+ 
+     # Initialization method
+-    def __init__(self, name, age):
++    def __init__(self, name: str, age: int) -> None:
++        """
++        Creates an instance of a Dog object
++        Parameters
++        ----------
++        name : name of dog
++        age : age of dog
++        """
+         self.name = name
+         self.age = age
+ 
+     # Defined method
+-    def speak(self, sound):
++    def speak(self, sound: str) -> str:
++
+         return f"{self.name} says {sound}"
+ 
+     # description method
+Index: Object Oriented Programming/bank_account.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>\"\"\" A Bank Account Class\"\"\"\r\n\r\n# Press Shift+F10 to execute\r\n# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.\r\n\r\nfrom hashlib import sha224\r\nimport pyinputplus as pyip\r\n\r\n\r\nclass BankAccount:\r\n    def __init__(self, account_number, password, balance=0):\r\n        self.balance = balance\r\n        self.account_number = account_number\r\n        self.password_encoded = sha224(password.encode())\r\n\r\n    def __str__(self):\r\n        return f'BankAccount({self.account_number})'\r\n\r\n    def _credit(self, value):\r\n        self.balance += value\r\n\r\n    def _debit(self, value):\r\n        self.balance -= value\r\n\r\n    def show_balance(self):\r\n        return self.balance\r\n\r\n    def transfer(self, account, value):\r\n        password_check = False\r\n        while not password_check:\r\n            print(f'Attempting to transfer £{value:.2f} to {account}')\r\n            if self.check_password(pyip.inputStr(\"Enter your password to validate this transaction: \\n\")):\r\n                password_check = True\r\n            else:\r\n                print(\"Password not correct\")\r\n        account._credit(value)\r\n        self._debit(value)\r\n        return f'Confirmation:\\nPaid £{value:.2f} from {self} to {account}'\r\n\r\n    def check_password(self, password):\r\n        return self.password_encoded.digest() == sha224(password.encode()).digest()\r\n\r\n\r\n# Press the green button in the gutter to run the script.\r\nif __name__ == '__main__':\r\n    account_1 = BankAccount('0324390', \"password\", 500)\r\n    account_2 = BankAccount('0969990', \"monday\", 1000)\r\n    log = account_1.transfer(account_2, 50)\r\n    print(log)\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Object Oriented Programming/bank_account.py b/Object Oriented Programming/bank_account.py
+--- a/Object Oriented Programming/bank_account.py	(revision 855829673a73e260d2434f7da6b3c0f512e2eec8)
++++ b/Object Oriented Programming/bank_account.py	(date 1673545249124)
+@@ -9,6 +9,14 @@
+ 
+ class BankAccount:
+     def __init__(self, account_number, password, balance=0):
++        """
++
++        Parameters
++        ----------
++        account_number :
++        password :
++        balance :
++        """
+         self.balance = balance
+         self.account_number = account_number
+         self.password_encoded = sha224(password.encode())
+Index: grade_boundaries.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>def calc_grade(raw_score: int) -> str:\r\n\r\n    # Check raw_score is an integer\r\n    if not isinstance(raw_score, int):\r\n        raise TypeError(\"Raw score must be an integer\")\r\n\r\n    # Check raw_score is in the correct range\r\n    elif raw_score > 350:\r\n        raise ValueError(\"Raw score must be less than or equal to 350\")\r\n\r\n    elif raw_score < 0:\r\n        raise ValueError(\"Raw score must be greater than or equal to 0\")\r\n\r\n    elif raw_score >= 264:\r\n        grade = \"A*\"\r\n\r\n    elif raw_score >= 229:\r\n        grade = \"A\"\r\n\r\n    elif raw_score >= 189:\r\n        grade = \"B\"\r\n\r\n    elif raw_score >= 150:\r\n        grade = \"C\"\r\n\r\n    elif raw_score >= 111:\r\n        grade = \"D\"\r\n\r\n    elif raw_score >= 72:\r\n        grade = \"E\"\r\n\r\n    else:\r\n        grade = \"U\"\r\n\r\n    return grade\r\n\r\n\r\nif __name__ == \"__main__\":\r\n    raw_score = 56\r\n    calc_grade(raw_score)\r\n    print(calc_grade(234))\r\n    print(calc_grade(\"A\"))\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/grade_boundaries.py b/grade_boundaries.py
+--- a/grade_boundaries.py	(revision 855829673a73e260d2434f7da6b3c0f512e2eec8)
++++ b/grade_boundaries.py	(date 1673545213144)
+@@ -1,5 +1,27 @@
+ def calc_grade(raw_score: int) -> str:
++    """Returns the grade earned for a given raw score
++
++    Parameters
++    ----------
++    raw_score : int
++        The numerical score for the candidate
++
++    Returns
++    -------
++    str
++        The grade earned for the input score (A* to E)
++
++    Raises
++    ------
++    ValueError
++        if raw_score is less than 0 or greater than 350
++    TypeError
++        if raw_score is not an integer
+ 
++    Args:
++        raw_score ():
++
++    """
+     # Check raw_score is an integer
+     if not isinstance(raw_score, int):
+         raise TypeError("Raw score must be an integer")
+@@ -36,7 +58,7 @@
+ 
+ 
+ if __name__ == "__main__":
+-    raw_score = 56
+-    calc_grade(raw_score)
++    score = 56
++    calc_grade(score)
+     print(calc_grade(234))
+     print(calc_grade("A"))
